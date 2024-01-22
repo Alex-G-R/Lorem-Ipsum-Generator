@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <random>
 
 #include "functions.hpp"
 
@@ -25,7 +26,7 @@ int main()
     int words_to_generate = setup_words();
     int words_generated;
 
-    generate_first_passage(words_generated);
+    start_generation(words_generated, words_to_generate);
 
     return 0;
 }
@@ -47,13 +48,93 @@ int setup_words()
 
 /* Generation */
 
-void generate_first_passage(int &words_generated)
+void start_generation(int &words_generated, int max_words)
 {
-    std::cout << "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
-    words_generated += words_generated + 8;
+    generate_first_passage(words_generated, max_words);
+    if(words_generated < max_words)
+    {
+        generate_sentence(words_generated, max_words);
+    }
+}
+
+void generate_sentence(int &words_generated, int max_words)
+{
+    while(words_generated < max_words)
+    {
+        int random_n = random_sentence_length();
+        while(random_n > max_words - words_generated)
+        {
+            random_n = random_sentence_length();
+        }
+
+        int sentence_words_generated = 1;
+        std::cout << generate_first_word() << " ";
+        while (random_n < sentence_words_generated)
+        {
+            if(random_n - sentence_words_generated != 1)
+            {
+                std::cout << generate_word() << " ";
+                sentence_words_generated++;
+            }
+            else
+            {
+                std::cout << generate_word() << ".";
+                sentence_words_generated++;
+            }
+        }
+        
+
+        words_generated += random_n;
+    }
+    get_number_input();
+}
+
+std::string generate_first_word()
+{
+    std::string first_word = lorem_array[random_lorem_word()];
+    first_word[0] = toupper(first_word[0]);
+    return first_word;
+}
+
+std::string generate_word()
+{
+    std::string word = lorem_array[random_lorem_word()];
+    return word;
+}
+
+void generate_first_passage(int &words_generated, int max_words)
+{
+    if(max_words >= 8)
+    {
+        std::cout << "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+        words_generated += words_generated + 8;
+    }
+    else
+    {
+        std::cout << "You must generate at least 8 words of lorem to fit first passage." << std::endl;
+        exit(0);
+    }
 }
 
 /* Utils */
+
+int random_sentence_length()
+{
+    std::random_device seed;
+    std::mt19937 gen{seed()}; // seed the generator
+    std::uniform_int_distribution<> dist{4, 14}; // set min and max
+    int n = dist(gen); // generate number
+    return n;
+}
+
+int random_lorem_word()
+{
+    std::random_device seed;
+    std::mt19937 gen{seed()}; // seed the generator
+    std::uniform_int_distribution<> dist{0, 68}; // set min and max
+    int n = dist(gen); // generate number
+    return n;
+}
 
 int get_number_input()
 {

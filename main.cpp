@@ -1,18 +1,20 @@
 #include <iostream>
+#include <string>
+#include <cctype>
 
 #include "functions.hpp"
 
 std::string lorem_array[69] =
     {
-        "Lorem", "ipsum", "dolor", "sit", "amet", "consectetur",
-        "adipiscing", "elit", "Sed", "do", "eiusmod", "tempor",
+        "lorem", "ipsum", "dolor", "sit", "amet", "consectetur",
+        "adipiscing", "elit", "sed", "do", "eiusmod", "tempor",
         "incididunt", "ut", "labore", "et", "dolore", "magna",
         "aliqua", "Ut", "enim", "ad", "minim", "veniam", "quis"
         "nostrud","exercitation", "ullamco", "laboris",
         "nisi", "ut", "aliquip", "ex", "ea", "commodo", "consequat",
-        "Duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+        "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
         "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat",
-        "nulla", "pariatur", "Excepteur", "sint", "occaecat", "cupidatat",
+        "nulla", "pariatur", "excepteur", "sint", "occaecat", "cupidatat",
         "non", "proident", "sunt", "in", "culpa", "qui", "officia", "deserunt",
         "mollit", "anim", "id", "est", "laborum"
 };
@@ -21,6 +23,9 @@ int main()
 {
     greet_user();
     int words_to_generate = setup_words();
+    int words_generated;
+
+    generate_first_passage(words_generated);
 
     return 0;
 }
@@ -40,7 +45,13 @@ int setup_words()
     return number_of_words;
 }
 
+/* Generation */
 
+void generate_first_passage(int &words_generated)
+{
+    std::cout << "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+    words_generated += words_generated + 8;
+}
 
 /* Utils */
 

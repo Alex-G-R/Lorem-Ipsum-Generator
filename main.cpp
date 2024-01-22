@@ -72,12 +72,24 @@ void generate_sentence(int &words_generated, int max_words)
 
         int sentence_words_generated = 1;
         std::cout << generate_first_word() << " ";
+
+        int r_comma_space = random_comma_space();
+        bool comma_generated = false;
         while (random_n > sentence_words_generated)
         {
             if(random_n - sentence_words_generated != 1)
-            {
-                std::cout << generate_word() << " ";
-                sentence_words_generated++;
+            {   
+                if(comma_generated == false && r_comma_space == sentence_words_generated)
+                {
+                    std::cout << generate_word() << ", ";
+                    sentence_words_generated++;
+                    comma_generated = true;
+                }
+                else
+                {
+                    std::cout << generate_word() << " ";
+                    sentence_words_generated++;
+                }
             }
             else
             {
@@ -135,6 +147,15 @@ int random_lorem_word()
     std::random_device seed;
     std::mt19937 gen{seed()}; // seed the generator
     std::uniform_int_distribution<> dist{0, 68}; // set min and max
+    int n = dist(gen); // generate number
+    return n;
+}
+
+int random_comma_space()
+{
+    std::random_device seed;
+    std::mt19937 gen{seed()}; // seed the generator
+    std::uniform_int_distribution<> dist{2, 10}; // set min and max
     int n = dist(gen); // generate number
     return n;
 }

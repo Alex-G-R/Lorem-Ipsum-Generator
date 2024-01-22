@@ -12,6 +12,7 @@ std::string generate_word();
 
 /* Utils */
 int random_sentence_length();
+int random_comma_space();
 int random_lorem_word();
 int get_number_input();
 void new_line();

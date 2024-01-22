@@ -69,7 +69,7 @@ void generate_sentence(int &words_generated, int max_words)
 
         int sentence_words_generated = 1;
         std::cout << generate_first_word() << " ";
-        while (random_n < sentence_words_generated)
+        while (random_n > sentence_words_generated)
         {
             if(random_n - sentence_words_generated != 1)
             {
@@ -78,7 +78,7 @@ void generate_sentence(int &words_generated, int max_words)
             }
             else
             {
-                std::cout << generate_word() << ".";
+                std::cout << generate_word() << ". ";
                 sentence_words_generated++;
             }
         }

@@ -35,6 +35,9 @@ void greet_user()
 {
     std::cout << "Hey, this is a lorem text generator." << std::endl;
     std::cout << "Text will be random everytime!" << std::endl;
+    std::cout << "The generator will not exceed your word limit." << std::endl;
+    std::cout << "If there will be too little words left it will end." << std::endl;
+    std::cout << "Generator will always end with a dot, it won't cut off a sentence." << std::endl;
     new_line();
 }
 
